@@ -3,12 +3,11 @@
   <metadata>
     <id>mimalloc-trimble</id>
     <version>0.0.0-localbuild</version>
-    <authors>Microsoft  Trimble Technology</authors>
-    <owners>Microsoft  Trimble Inc</owners>
-    <projectUrl>https://github.com/Trimble-Technology/mimalloc</projectUrl>
-    <licenseUrl>https://github.com/Trimble-Technology/mimalloc/License</licenseUrl>
+    <authors>Microsoft, Trimble Technology</authors>
+    <projectUrl>https://github.com/trimble-oss/mimalloc</projectUrl>
+    <licenseUrl>https://github.com/trimble-oss/mimalloc/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>malloc pool (x64, v142, Release/DebugCRT).</description>
+    <description>malloc pool (x64, v142/v143->v142, Release/DebugCRT).</description>
     <copyright>MIT, Copyright (c) 2018-2021 Microsoft Corporation, Daan Leijen</copyright>
     <title>mimalloc-trimble</title>
     <tags>mimalloc-trimble  native</tags>

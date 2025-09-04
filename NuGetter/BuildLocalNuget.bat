@@ -6,4 +6,4 @@ set /p Build=<ver.txt
 set /a Build+=1
 echo %Build% >ver.txt
 
-c:\work\nuget.exe pack -Version 2.0.7.%Build% mimalloc-trimble.nuspec
+c:\work\bin\nuget.exe pack -Version 2.0.7.%Build% mimalloc-trimble.nuspec
