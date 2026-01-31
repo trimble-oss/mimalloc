@@ -408,15 +408,38 @@ static inline mi_theap_t* _mi_theap_cached(void) {
 // Dynamic TLS slot (windows)
 #define MI_THEAP_INITASNULL  1
 
+// We try to use direct slots, but can also use the expansion slots (upto 1024 available)
+#if MI_SIZE_SIZE==4
+#define MI_TLS_EXPANSION_SLOT    (0x0F94 / MI_SIZE_SIZE)
+#else
+#define MI_TLS_EXPANSION_SLOT    (0x1780 / MI_SIZE_SIZE)
+#endif
+
 extern mi_decl_hidden size_t _mi_theap_default_slot;
 extern mi_decl_hidden size_t _mi_theap_cached_slot;
+extern mi_decl_hidden size_t _mi_theap_default_expansion_slot;
+extern mi_decl_hidden size_t _mi_theap_cached_expansion_slot;
 
 static inline mi_theap_t* _mi_theap_default(void) {
-  return (mi_theap_t*)mi_prim_tls_slot(_mi_theap_default_slot); // valid initial "last user slot" so it returns NULL at first leading to slot initialization
+  const size_t slot = _mi_theap_default_slot;
+  mi_theap_t* theap  = (mi_theap_t*)mi_prim_tls_slot(slot);
+  #if !MI_WIN_DIRECT_TLS
+  if (slot==MI_TLS_EXPANSION_SLOT && theap!=NULL) {  // in initialized TlsExpansionSlots ?
+    theap = ((mi_theap_t**)theap)[_mi_theap_default_expansion_slot];
+  }
+  #endif
+  return theap;
 }
 
 static inline mi_theap_t* _mi_theap_cached(void) {
-  return (mi_theap_t*)mi_prim_tls_slot(_mi_theap_cached_slot);
+  const size_t slot = _mi_theap_cached_slot;
+  mi_theap_t* theap = (mi_theap_t*)mi_prim_tls_slot(slot);
+  #if !MI_WIN_DIRECT_TLS
+  if (slot==MI_TLS_EXPANSION_SLOT && theap!=NULL) {  // in initialized TlsExpansionSlots ?
+    theap = ((mi_theap_t**)theap)[_mi_theap_cached_expansion_slot];
+  }
+  #endif
+  return theap;
 }
 
 #elif MI_TLS_MODEL_DYNAMIC_PTHREADS
@@ -479,7 +502,7 @@ static inline mi_theap_t* _mi_heap_theap_peek(const mi_heap_t* heap) {
 static inline mi_theap_t* _mi_page_associated_theap_peek(mi_page_t* page) {
   mi_heap_t* const heap = page->heap;
   mi_theap_t* theap;
-  if mi_likely(heap==NULL) { theap = __mi_theap_main; }  // note: on macOS accessing the thread_local can cause allocation during thread shutdown (and reinitialize the thread)! 
+  if mi_likely(heap==NULL) { theap = __mi_theap_main; }  // note: on macOS accessing the thread_local can cause allocation during thread shutdown (and reinitialize the thread)!
                       else { theap = _mi_heap_theap_peek(heap); }
   mi_assert_internal(theap==NULL || _mi_thread_id()==theap->tld->thread_id);
   return theap;

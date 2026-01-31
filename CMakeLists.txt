@@ -18,7 +18,7 @@ option(MI_SEE_ASM           "Generate assembly files" OFF)
 option(MI_OSX_INTERPOSE     "Use interpose to override standard malloc on macOS" ON)
 option(MI_OSX_ZONE          "Use malloc zone to override standard malloc on macOS" ON)
 option(MI_WIN_REDIRECT      "Use redirection module ('mimalloc-redirect') on Windows if compiling mimalloc as a DLL" ON)
-option(MI_WIN_USE_FIXED_TLS "Use a fixed TLS slot on Windows to avoid extra tests in the malloc fast path" OFF)
+option(MI_WIN_DIRECT_TLS    "Use only direct TLS slots on Windows to avoid extra tests in the malloc fast path (only works if the program uses less than 64 TlsAlloc'd slots in total)" OFF)
 option(MI_LOCAL_DYNAMIC_TLS "Use local-dynamic-tls, a slightly slower but dlopen-compatible thread local storage mechanism (Unix)" OFF)
 option(MI_LIBC_MUSL         "Enable this when linking with musl libc" OFF)
 
@@ -394,9 +394,9 @@ if(MI_WIN_USE_FLS)
   list(APPEND mi_defines MI_WIN_USE_FLS=1)
 endif()
 
-if(MI_WIN_USE_FIXED_TLS)
-  message(STATUS "Use fixed TLS slot on Windows to avoid extra tests in the malloc fast path (MI_WIN_USE_FIXED_TLS=ON)")
-  list(APPEND mi_defines MI_WIN_USE_FIXED_TLS=1)
+if(MI_WIN_DIRECT_TLS)
+  message(STATUS "Use only direct TLS slots on Windows to avoid extra tests in the malloc fast path -- this only works if the program uses less than 64 TlsAlloc'd slots in total! (MI_WIN_USE_ONLY_DIRECT_TLS=ON)")
+  list(APPEND mi_defines MI_WIN_DIRECT_TLS=1)
 endif()
 
 # Check /proc/cpuinfo for an SV39 MMU and limit the virtual address bits.
