@@ -34,11 +34,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="mimalloc-logo.svg"/></td>
   <td id="projectalign">
-<<<<<<< HEAD
-   <div id="projectname">mi-malloc<span id="projectnumber">&#160;3.2</span>
-=======
    <div id="projectname">mi-malloc<span id="projectnumber">&#160;v1.9,  v2.2,  v3.2</span>
->>>>>>> dev
    </div>
   </td>
     <td>        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -119,7 +115,7 @@ $(function(){initNavTree('using.html',''); initResizable(true); });
 </div><!-- fragment --><p> to link with the static library. See <code>test\CMakeLists.txt</code> for an example.</p>
 <h3>C++</h3>
 <p>For best performance in C++ programs, it is also recommended to override the global <code>new</code> and <code>delete</code> operators. For convenience, mimalloc provides <a href="https://github.com/microsoft/mimalloc/blob/master/include/mimalloc-new-delete.h"><code>mimalloc-new-delete.h</code></a> which does this for you &ndash; just include it in a single(!) source file in your project.</p>
-<p>In C++, mimalloc also provides the <code><a class="el" href="group__cpp.html#structmi__stl__allocator" title="std::allocator implementation for mimalloc for use in STL containers.">mi_stl_allocator</a></code> struct which implements the <code>std::allocator</code> interface. For example: </p><div class="fragment"><div class="line">std::vector&lt;some_struct, mi_stl_allocator&lt;some_struct&gt;&gt; vec;</div>
+<p>In C++, mimalloc also provides the <code><a class="el" href="group__cpp.html#structmi__stl__allocator" title="std::allocator implementation for mimalloc for use in STL containers. For example:">mi_stl_allocator</a></code> struct which implements the <code>std::allocator</code> interface. For example: </p><div class="fragment"><div class="line">std::vector&lt;some_struct, mi_stl_allocator&lt;some_struct&gt;&gt; vec;</div>
 <div class="line">vec.push_back(some_struct());</div>
 </div><!-- fragment --><h3>Statistics</h3>
 <p>You can pass environment variables to print verbose messages (<code>MIMALLOC_VERBOSE=1</code>) and statistics (<code>MIMALLOC_SHOW_STATS=1</code>) (in the debug version): </p><div class="fragment"><div class="line">&gt; env MIMALLOC_SHOW_STATS=1 ./cfrac 175451865205073170563711388363</div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['library_0',['Using the Library',['../group__extended.html',1,'']]]
+  ['library_0',['Using the Library',['../using.html',1,'']]]
 ];

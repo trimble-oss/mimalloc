@@ -118,7 +118,7 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <li><b>first-class heaps</b>: efficiently create and use multiple heaps to allocate across different regions. A heap can be destroyed at once instead of deallocating each object separately. v3.2+ has true first-class heaps where one can allocate in a heap from any thread. <br  />
 </li>
 <li><b>bounded</b>: it does not suffer from <em>blowup</em> [1], has bounded worst-case allocation times (<em>wcat</em>) (upto OS primitives), bounded space overhead (~0.2% meta-data, with low internal fragmentation), and has no internal points of contention using only atomic operations.</li>
-<li><b>fast</b>: In our benchmarks (see <a class="el" href="group__extended.html">below</a>), <em>mimalloc</em> outperforms other leading allocators (<em>jemalloc</em>, <em>tcmalloc</em>, <em>Hoard</em>, etc), and often uses less memory. A nice property is that it does consistently well over a wide range of benchmarks. There is also good huge OS page support for larger server programs.</li>
+<li><b>fast</b>: In our benchmarks (see <a class="el" href="bench.html">below</a>), <em>mimalloc</em> outperforms other leading allocators (<em>jemalloc</em>, <em>tcmalloc</em>, <em>Hoard</em>, etc), and often uses less memory. A nice property is that it does consistently well over a wide range of benchmarks. There is also good huge OS page support for larger server programs.</li>
 </ul>
 <p>You can read more on the design of <em>mimalloc</em> in the <a href="https://www.microsoft.com/en-us/research/publication/mimalloc-free-list-sharding-in-action">technical report</a> which also has detailed benchmark results.</p>
 <p>There are three maintained versions of mimalloc. New development is on v3, while v1 and v2 are maintained with security and bug fixes.</p>
@@ -129,13 +129,13 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 </ul>
 <p>Further information:</p>
 <ul>
-<li><a class="el" href="group__extended.html">Building</a></li>
-<li><a class="el" href="group__extended.html">Using the Library</a></li>
-<li><a class="el" href="group__extended.html">Environment Options</a></li>
-<li><a class="el" href="group__extended.html">Overriding Malloc</a></li>
-<li><a class="el" href="group__extended.html">Build Modes</a></li>
-<li><a class="el" href="group__extended.html">Tools</a></li>
-<li><a class="el" href="group__extended.html">Performance</a></li>
+<li><a class="el" href="build.html">Building</a></li>
+<li><a class="el" href="using.html">Using the Library</a></li>
+<li><a class="el" href="environment.html">Environment Options</a></li>
+<li><a class="el" href="overrides.html">Overriding Malloc</a></li>
+<li><a class="el" href="modes.html">Build Modes</a></li>
+<li><a class="el" href="tools.html">Tools</a></li>
+<li><a class="el" href="bench.html">Performance</a></li>
 <li><a class="el" href="group__malloc.html">Basic Allocation</a></li>
 <li><a class="el" href="group__extended.html">Extended Functions</a></li>
 <li><a class="el" href="group__aligned.html">Aligned Allocation</a></li>

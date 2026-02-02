@@ -8,5 +8,10 @@ var topics =
     [ "Heap Introspection", "group__analysis.html", "group__analysis" ],
     [ "Arenas", "group__arenas.html", "group__arenas" ],
     [ "Subprocesses", "group__subproc.html", "group__subproc" ],
-    [ "Extended Functions", "group__extended.html", "group__extended" ]
+    [ "Extended Functions", "group__extended.html", "group__extended" ],
+    [ "Statistics", "group__stats.html", "group__stats" ],
+    [ "Runtime Options", "group__options.html", "group__options" ],
+    [ "Thread-local heaps", "group__theap.html", "group__theap" ],
+    [ "Posix", "group__posix.html", "group__posix" ],
+    [ "C++ wrappers", "group__cpp.html", "group__cpp" ]
 ];
