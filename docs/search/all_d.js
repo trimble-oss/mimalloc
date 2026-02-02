@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['the_20library_0',['Using the library',['../using.html',1,'']]],
-  ['typed_20macros_1',['Typed Macros',['../group__typed.html',1,'']]]
+  ['statistics_0',['Statistics',['../group__stats.html',1,'']]],
+  ['subprocesses_1',['Subprocesses',['../group__subproc.html',1,'']]]
 ];

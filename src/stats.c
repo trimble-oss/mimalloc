@@ -569,6 +569,7 @@ mi_decl_export void mi_process_info_print(void) mi_attr_noexcept {
 // Return statistics
 // --------------------------------------------------------
 
+<<<<<<< HEAD
 size_t mi_stats_get_bin_size(size_t bin) mi_attr_noexcept {
   if (bin > MI_BIN_HUGE) return 0;
   return _mi_bin_size(bin);
@@ -609,6 +610,13 @@ static void mi_subproc_aggregate_stats(mi_subproc_id_t subproc_id, size_t stats_
 
 void mi_stats_get(size_t stats_size, mi_stats_t* stats) mi_attr_noexcept {
   mi_subproc_aggregate_stats(mi_subproc_current(), stats_size, stats);
+=======
+bool mi_stats_get(mi_stats_t* stats) mi_attr_noexcept {
+  if (stats == NULL || stats->size != sizeof(mi_stats_t) || stats->version != MI_STAT_VERSION) return false;
+  _mi_memzero(stats,stats->size);
+  _mi_memcpy(stats, &_mi_stats_main, sizeof(mi_stats_t));
+  return true;
+>>>>>>> dev
 }
 
 
@@ -726,9 +734,15 @@ static char* mi_stats_get_json_from(mi_stats_t* stats, size_t output_size, char*
   else {
     if (!mi_json_buf_expand(&hbuf)) return NULL;
   }
+<<<<<<< HEAD
   mi_json_buf_print(&hbuf, "{\n");
   mi_json_buf_print_value(&hbuf, "version", MI_STAT_VERSION);
   mi_json_buf_print_value(&hbuf, "mimalloc_version", MI_MALLOC_VERSION);
+=======
+  mi_heap_buf_print(&hbuf, "{\n");
+  mi_heap_buf_print_value(&hbuf, "stat_version", MI_STAT_VERSION);
+  mi_heap_buf_print_value(&hbuf, "mimalloc_version", MI_MALLOC_VERSION);
+>>>>>>> dev
 
   // process info
   mi_json_buf_print(&hbuf, "  \"process\": {\n");
@@ -764,6 +778,7 @@ static char* mi_stats_get_json_from(mi_stats_t* stats, size_t output_size, char*
   for (size_t i = 0; i <= MI_BIN_HUGE; i++) {
     mi_json_buf_print_count_bin(&hbuf, "    ", &stats->page_bins[i], i, i!=MI_BIN_HUGE);
   }
+<<<<<<< HEAD
   mi_json_buf_print(&hbuf, "  ],\n");
   mi_json_buf_print(&hbuf, "  \"chunk_bins\": [\n");
   for (size_t i = 0; i < MI_CBIN_COUNT; i++) {
@@ -772,6 +787,18 @@ static char* mi_stats_get_json_from(mi_stats_t* stats, size_t output_size, char*
   mi_json_buf_print(&hbuf, "  ]\n");
   mi_json_buf_print(&hbuf, "}\n");
   return hbuf.buf;
+=======
+  mi_heap_buf_print(&hbuf, "  ]\n");  
+  mi_heap_buf_print(&hbuf, "}\n");
+  if (hbuf.used >= hbuf.size) {
+    // failed
+    if (hbuf.can_realloc) { mi_free(hbuf.buf); }
+    return NULL;
+  }
+  else {
+    return hbuf.buf;
+  }
+>>>>>>> dev
 }
 
 char* mi_subproc_stats_get_json(mi_subproc_id_t subproc_id, size_t buf_size, char* buf) mi_attr_noexcept {

@@ -215,16 +215,53 @@ mi_threadid_t _mi_thread_id(void) mi_attr_noexcept {
 // the theap belonging to the main heap
 mi_decl_hidden mi_decl_thread mi_theap_t* __mi_theap_main = NULL;
 
+<<<<<<< HEAD
 #if MI_TLS_MODEL_THREAD_LOCAL
 // the thread-local main theap for allocation
 mi_decl_hidden mi_decl_thread mi_theap_t* __mi_theap_default = (mi_theap_t*)&_mi_theap_empty;
 // the last used non-main theap
 mi_decl_hidden mi_decl_thread mi_theap_t* __mi_theap_cached = (mi_theap_t*)&_mi_theap_empty;
 #endif
+=======
+extern mi_decl_hidden mi_heap_t _mi_heap_main;
+
+static mi_decl_cache_align mi_subproc_t mi_subproc_default;
+
+static mi_decl_cache_align mi_tld_t tld_main = {
+  0, false,
+  &_mi_heap_main, &_mi_heap_main,
+  { { NULL, NULL }, {NULL ,NULL}, {NULL ,NULL, 0},
+    0, 0, 0, 0, 0, &mi_subproc_default,
+    &tld_main.stats
+  }, // segments
+  { sizeof(mi_stats_t), MI_STAT_VERSION, MI_STATS_NULL }       // stats
+};
+
+mi_decl_cache_align mi_heap_t _mi_heap_main = {
+  &tld_main,
+  MI_ATOMIC_VAR_INIT(NULL),
+  0,                // thread id
+  0,                // initial cookie
+  0,                // arena id
+  { 0, 0 },         // the key of the main heap can be fixed (unlike page keys that need to be secure!)
+  { {0x846ca68b}, {0}, 0, true },  // random
+  0,                // page count
+  MI_BIN_FULL, 0,   // page retired min/max
+  0, 0,             // generic count
+  NULL,             // next heap
+  false,            // can reclaim
+  0,                // tag
+  #if MI_GUARDED
+  0, 0, 0, 0,
+  #endif
+  MI_SMALL_PAGES_EMPTY,
+  MI_PAGE_QUEUES_EMPTY
+};
+>>>>>>> dev
 
 bool _mi_process_is_initialized = false;  // set to `true` in `mi_process_init`.
 
-mi_stats_t _mi_stats_main = { MI_STAT_VERSION, MI_STATS_NULL };
+mi_stats_t _mi_stats_main = { sizeof(mi_stats_t), MI_STAT_VERSION, MI_STATS_NULL };
 
 #if MI_GUARDED
 mi_decl_export void mi_theap_guarded_set_sample_rate(mi_theap_t* theap, size_t sample_rate, size_t seed) {

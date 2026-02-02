@@ -11,7 +11,7 @@ terms of the MIT license. A copy of the license can be found in the file
 #include <mimalloc.h>
 #include <stdint.h>
 
-#define MI_STAT_VERSION   3   // increased on every backward incompatible change
+#define MI_STAT_VERSION   4  // increased on every backward incompatible change
 
 // alignment for atomic fields
 #if defined(_MSC_VER)
@@ -97,7 +97,8 @@ typedef enum mi_chunkbin_e {
 
 typedef struct mi_stats_s
 {
-  int version;
+  size_t size;          // size of the mi_stats_t structure 
+  size_t version;       
 
   mi_decl_align(8)  MI_STAT_FIELDS()
 
@@ -120,6 +121,7 @@ typedef struct mi_stats_s
 extern "C" {
 #endif
 
+<<<<<<< HEAD
 // stats from a heap
 mi_decl_export void    mi_heap_stats_get(mi_heap_t* heap, size_t stats_size, mi_stats_t* stats) mi_attr_noexcept;
 mi_decl_export char*   mi_heap_stats_get_json(mi_heap_t* heap, size_t buf_size, char* buf) mi_attr_noexcept;      // use mi_free to free the result if the input buf == NULL
@@ -141,6 +143,10 @@ mi_decl_export void    mi_stats_print_out(mi_output_fun* out, void* arg) mi_attr
 
 
 mi_decl_export size_t  mi_stats_get_bin_size(size_t bin) mi_attr_noexcept;
+=======
+mi_decl_export bool  mi_stats_get( mi_stats_t* stats ) mi_attr_noexcept;
+mi_decl_export char* mi_stats_get_json( size_t buf_size, char* buf ) mi_attr_noexcept;    // use mi_free to free the result if the input buf == NULL
+>>>>>>> dev
 
 #ifdef __cplusplus
 }
