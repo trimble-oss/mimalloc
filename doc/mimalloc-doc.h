@@ -80,7 +80,9 @@ New development is on v3, while v1 and v2 are maintained with security and bug f
         memory between threads. On certain large workloads this version may use 
         (much) less memory. Also supports true first-class heaps (that can allocate from any thread) 
         and has more efficient heap-walking (for the CPython GC for example).
-        (release tags: `v3.2.x`, development branch `dev3`)
+        (release tags: `v3.2.x`, development branch `dev3`).
+
+To learn more about the internals of mimalloc, see [include/mimalloc/types.h](https://github.com/microsoft/mimalloc/blob/master/include/mimmalloc/types.h).
 
 Further information:
 
@@ -437,14 +439,14 @@ void* mi_heap_recalloc_aligned_at(mi_heap_t* heap, void* p, size_t newcount, siz
 /// a specific allocation arena (`mi_heap_new_in_arena()`).
 ///
 /// __v1__,__v2__: heaps are only semi-first-class and 
-///    __one can only use heap allocation function from the thread that created the heap__.
-///    (mi_free() can still be used from any thread to free objects from any heap).
+///    __one can only use heap allocation functions from the thread that created the heap__.
+///    (of course, mi_free() can always be used from any thread to free objects from any heap).
 ///
 /// __v3__: heaps are fully first-class and can be used to allocate efficiently from
 ///    from any thread. 
 ///    In v3, the old v1/v2 heaps still exist but are now called _theaps_ (mi_theap_t()) for 
 ///    thread-local heaps. A v3 heap creates internally such theaps on demand
-///    to efficiently allocate without taking locks for example.
+///    to efficiently allocate without needing taking locks for example.
 ///
 /// \{
 

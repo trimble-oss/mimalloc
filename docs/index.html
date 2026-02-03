@@ -125,8 +125,9 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <ul>
 <li><b>v1</b>: initial design of mimalloc (release tags: <code>v1.9.x</code>, development branch <code>dev</code>)</li>
 <li><b>v2</b>: main mimalloc version. Uses thread-local segments to reduce fragmentation. (release tags: <code>v2.2.x</code>, development branch <code>dev2</code>)</li>
-<li><b>v3</b>: simplifies the lock-free design of previous versions, and improves sharing of memory between threads. On certain large workloads this version may use (much) less memory. Also supports true first-class heaps (that can allocate from any thread) and has more efficient heap-walking (for the CPython GC for example). (release tags: <code>v3.2.x</code>, development branch <code>dev3</code>)</li>
+<li><b>v3</b>: simplifies the lock-free design of previous versions, and improves sharing of memory between threads. On certain large workloads this version may use (much) less memory. Also supports true first-class heaps (that can allocate from any thread) and has more efficient heap-walking (for the CPython GC for example). (release tags: <code>v3.2.x</code>, development branch <code>dev3</code>).</li>
 </ul>
+<p>To learn more about the internals of mimalloc, see <a href="https://github.com/microsoft/mimalloc/blob/master/include/mimmalloc/types.h">include/mimalloc/types.h</a>.</p>
 <p>Further information:</p>
 <ul>
 <li><a class="el" href="build.html">Building</a></li>
