@@ -8,14 +8,14 @@
     <licenseUrl>https://github.com/trimble-oss/mimalloc/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>malloc pool (x64, v142/v143->v142, Release/DebugCRT).</description>
-    <copyright>MIT, Copyright (c) 2018-2021 Microsoft Corporation, Daan Leijen</copyright>
+    <copyright>MIT, Copyright (c) 2018-2025 Microsoft Corporation, Daan Leijen</copyright>
     <title>mimalloc-trimble</title>
     <tags>mimalloc-trimble  native</tags>
   </metadata>
   <files>
     <file src="mimalloc-trimble.targets" target="\build\native\" />
     
-    <file src="..\include\*" target="\build\native\include\" />
+    <file src="..\include\**" target="\build\native\include\" />
 
     <file src="..\build\x64\Release\mimalloc.Static.VS2019.lib" target="\build\native\lib\x64\" />
     <file src="..\build\x64\DebugCRT\mimalloc.Static.VS2019.lib" target="\build\native\lib\x64\DebugCRT\" />
